@@ -1,4 +1,5 @@
 import { Stack } from "expo-router"
+import { StatusBar } from "expo-status-bar"
 import {
   useFonts,
   Baloo2_400Regular,
@@ -15,5 +16,14 @@ export default function RootLayout() {
     return null
   }
 
-  return <Stack />
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(public)" />
+        <Stack.Screen name="(private)" />
+        <Stack.Screen name="index" />
+      </Stack>
+      <StatusBar style="light" />
+    </>
+  )
 }

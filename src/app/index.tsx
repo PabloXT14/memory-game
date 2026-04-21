@@ -1,12 +1,11 @@
-import { fontFamily } from "@/shared/theme/font-family"
-import { Text, View } from "react-native"
+import { Redirect } from "expo-router"
 
 export default function Index() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 20, fontFamily: fontFamily.baloo2.extraBold }}>
-        Hello World!
-      </Text>
-    </View>
-  )
+  const isLoggedIn = true // Replace with actual authentication state
+
+  if (isLoggedIn) {
+    return <Redirect href="/home" />
+  }
+
+  return <Redirect href="/login" />
 }
