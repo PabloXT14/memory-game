@@ -7,8 +7,9 @@ import {
 } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
+import { LinearGradient } from "expo-linear-gradient"
 
-import { colors } from "@/shared/theme/colors"
+import { colors, gradients } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
 
 export default function Login() {
@@ -39,8 +40,20 @@ export default function Login() {
             style={styles.input}
           />
 
-          <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-            <Text style={styles.buttonText}>Entrar</Text>
+          <TouchableOpacity activeOpacity={0.8} style={styles.shadow}>
+            <LinearGradient
+              colors={[
+                gradients.colorful[0],
+                gradients.colorful[1],
+                gradients.colorful[2],
+              ]}
+              locations={[0, 0.5, 1]} // 0%, 50%, 100%
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Entrar</Text>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
       </View>
@@ -121,8 +134,6 @@ const styles = StyleSheet.create({
     gap: 8,
 
     borderRadius: 9999,
-
-    backgroundColor: colors.accent.purple,
   },
 
   buttonText: {
@@ -130,5 +141,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: fontFamily.baloo2.extraBold,
     lineHeight: 16 * 1.4,
+  },
+
+  shadow: {
+    borderRadius: 9999,
+
+    // Custom shadow using boxShadow for better control and consistency across platforms
+    // boxShadow syntax: offsetX offsetY blurRadius spread(optional) color
+    // 33 = 20% opacity with hex alpha
+    boxShadow: `
+      -10px 10px 24px -3px ${colors.accent.purpleDark}33,
+      10px 10px 24px -4px ${colors.accent.cyanDark}33
+    `,
   },
 })

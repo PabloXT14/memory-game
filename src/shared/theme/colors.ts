@@ -13,8 +13,10 @@ export const colors = {
 
   accent: {
     purple: "#C27CFB",
+    purpleDark: "#9A2AF4",
     blue: "#7DAFFF",
     cyan: "#55EAE1",
+    cyanDark: "#1DBA95",
   },
 
   semantic: {
