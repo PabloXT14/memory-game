@@ -38,6 +38,8 @@ export default function Login() {
             placeholder="Digite seu nome"
             placeholderTextColor={colors.grayscale[300]}
             style={styles.input}
+            autoCapitalize="words"
+            returnKeyType="done"
           />
 
           <TouchableOpacity activeOpacity={0.8} style={styles.shadow}>
