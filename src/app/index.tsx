@@ -3,11 +3,10 @@ import { Redirect } from "expo-router"
 
 export default function Index() {
   const user = useAuthStore((state) => state.user)
-  const isLoggedIn = !!user
 
-  if (isLoggedIn) {
-    return <Redirect href="/home" />
+  if (!user) {
+    return <Redirect href="/login" />
   }
 
-  return <Redirect href="/login" />
+  return <Redirect href="/home" />
 }

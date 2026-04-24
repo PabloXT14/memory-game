@@ -18,11 +18,19 @@ export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
-      setAuthenticated: (name) => {},
+      setAuthenticated: (name) => {
+        const newUser: User = {
+          id: `user-${Date.now()}`,
+          name,
+          createdAt: new Date().toISOString(),
+        }
+
+        set({ user: newUser })
+      },
       logout: () => set({ user: null }),
     }),
     {
-      name: "@memory-game/auth-store",
+      name: "@memory-game:auth-store",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )
