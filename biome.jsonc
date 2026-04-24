@@ -17,7 +17,8 @@
   "linter": {
     "rules": {
       "style": {
-        "noEnum": "off"
+        "noEnum": "off",
+        "useConsistentTypeDefinitions": "off"
       },
       "correctness": {
         "useExhaustiveDependencies": "info"
