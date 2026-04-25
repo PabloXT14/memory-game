@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
 import { KeyboardAvoidingView } from "react-native-keyboard-controller"
@@ -7,7 +7,9 @@ import { colors } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
 
 import type { useAuthViewModel } from "./use-auth-view-model"
+
 import { Button } from "@/shared/components/button"
+import { Input } from "@/shared/components/input"
 
 type AuthViewProps = ReturnType<typeof useAuthViewModel>
 
@@ -38,14 +40,12 @@ export const AuthView = ({
 
           {/* LOGIN FORM */}
           <View style={styles.loginForm}>
-            <TextInput
+            <Input
               placeholder="Digite seu nome"
-              placeholderTextColor={colors.grayscale[300]}
-              style={styles.input}
-              autoCapitalize="words"
-              returnKeyType="done"
               value={username}
               onChangeText={setUsername}
+              autoCapitalize="words"
+              returnKeyType="done"
             />
 
             <Button label="Entrar" onPress={handleAuthentication} />
@@ -93,28 +93,5 @@ const styles = StyleSheet.create({
   loginForm: {
     width: "100%",
     gap: 16,
-  },
-
-  input: {
-    width: "100%",
-    height: 48,
-
-    padding: 0,
-    margin: 0,
-
-    textAlign: "center",
-    textAlignVertical: "center",
-    includeFontPadding: false, // Remove extra padding on Android
-
-    borderRadius: 9999,
-    borderWidth: 1,
-    borderColor: colors.grayscale[400],
-
-    backgroundColor: colors.grayscale[500],
-
-    color: colors.grayscale[100],
-    fontSize: 16,
-    fontFamily: fontFamily.baloo2.regular,
-    lineHeight: 24,
   },
 })
