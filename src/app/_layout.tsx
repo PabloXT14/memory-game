@@ -5,6 +5,8 @@ import {
   Baloo2_400Regular,
   Baloo2_800ExtraBold,
 } from "@expo-google-fonts/baloo-2"
+import { KeyboardProvider } from "react-native-keyboard-controller"
+
 import { useAuthStore } from "@/shared/stores/auth-store"
 
 export default function RootLayout() {
@@ -20,7 +22,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <KeyboardProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Protected guard={!user}>
           <Stack.Screen name="(public)" />
@@ -33,6 +35,6 @@ export default function RootLayout() {
       </Stack>
 
       <StatusBar style="light" />
-    </>
+    </KeyboardProvider>
   )
 }

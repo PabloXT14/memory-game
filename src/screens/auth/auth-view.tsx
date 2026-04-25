@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
+import { KeyboardAvoidingView } from "react-native-keyboard-controller"
 
 import { colors } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
@@ -17,38 +18,40 @@ export const AuthView = ({
 }: AuthViewProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* WELCOME SECTION */}
-        <View style={styles.welcomeSection}>
-          <Image
-            source={require("@/assets/images/logo.svg")}
-            style={{ width: 71, height: 71 }}
-            contentFit="contain"
-          />
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <View style={styles.content}>
+          {/* WELCOME SECTION */}
+          <View style={styles.welcomeSection}>
+            <Image
+              source={require("@/assets/images/logo.svg")}
+              style={{ width: 71, height: 71 }}
+              contentFit="contain"
+            />
 
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.title}>memory game</Text>
-            <Text style={styles.subtitle}>
-              Teste sua memória enquanto aprende!
-            </Text>
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.title}>memory game</Text>
+              <Text style={styles.subtitle}>
+                Teste sua memória enquanto aprende!
+              </Text>
+            </View>
+          </View>
+
+          {/* LOGIN FORM */}
+          <View style={styles.loginForm}>
+            <TextInput
+              placeholder="Digite seu nome"
+              placeholderTextColor={colors.grayscale[300]}
+              style={styles.input}
+              autoCapitalize="words"
+              returnKeyType="done"
+              value={username}
+              onChangeText={setUsername}
+            />
+
+            <Button label="Entrar" onPress={handleAuthentication} />
           </View>
         </View>
-
-        {/* LOGIN FORM */}
-        <View style={styles.loginForm}>
-          <TextInput
-            placeholder="Digite seu nome"
-            placeholderTextColor={colors.grayscale[300]}
-            style={styles.input}
-            autoCapitalize="words"
-            returnKeyType="done"
-            value={username}
-            onChangeText={setUsername}
-          />
-
-          <Button label="Entrar" onPress={handleAuthentication} />
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
@@ -62,6 +65,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    flex: 1,
     justifyContent: "center",
     gap: 40,
     paddingBottom: 48,
