@@ -1,18 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import { StyleSheet, Text, TextInput, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
-import { LinearGradient } from "expo-linear-gradient"
 
-import { colors, gradients } from "@/shared/theme/colors"
+import { colors } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
 
 import type { useAuthViewModel } from "./use-auth-view-model"
+import { Button } from "@/shared/components/button"
 
 type AuthViewProps = ReturnType<typeof useAuthViewModel>
 
@@ -52,25 +46,7 @@ export const AuthView = ({
             onChangeText={setUsername}
           />
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.shadow}
-            onPress={handleAuthentication}
-          >
-            <LinearGradient
-              colors={[
-                gradients.colorful[0],
-                gradients.colorful[1],
-                gradients.colorful[2],
-              ]}
-              locations={[0, 0.5, 1]} // 0%, 50%, 100%
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.button}
-            >
-              <Text style={styles.buttonText}>Entrar</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+          <Button label="Entrar" onPress={handleAuthentication} />
         </View>
       </View>
     </SafeAreaView>
@@ -136,38 +112,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: fontFamily.baloo2.regular,
     lineHeight: 24,
-  },
-
-  button: {
-    width: "100%",
-    height: 48,
-
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-
-    borderRadius: 9999,
-  },
-
-  buttonText: {
-    color: colors.white,
-    fontSize: 16,
-    fontFamily: fontFamily.baloo2.extraBold,
-    lineHeight: 16 * 1.4,
-  },
-
-  shadow: {
-    borderRadius: 9999,
-
-    // Custom shadow using boxShadow for better control and consistency across platforms
-    // boxShadow syntax: offsetX offsetY blurRadius spread(optional) color
-    // 33 = 20% opacity with hex alpha
-    boxShadow: `
-      -10px 10px 24px -3px ${colors.accent.purpleDark}33,
-      10px 10px 24px -4px ${colors.accent.cyanDark}33
-    `,
   },
 })
