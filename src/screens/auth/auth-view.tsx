@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
 import { KeyboardAvoidingView } from "react-native-keyboard-controller"
+import Animated from "react-native-reanimated"
 
 import { colors } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
+import { usePressAnimation } from "@/animations/hooks/use-press-animation"
 
 import type { useAuthViewModel } from "./use-auth-view-model"
 
@@ -18,6 +20,8 @@ export const AuthView = ({
   setUsername,
   handleAuthentication,
 }: AuthViewProps) => {
+  const pressAnimation = usePressAnimation({ scaleActive: 0.8 })
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
@@ -48,7 +52,14 @@ export const AuthView = ({
               returnKeyType="done"
             />
 
-            <Button label="Entrar" onPress={handleAuthentication} />
+            <Animated.View style={pressAnimation.animatedStyle}>
+              <Button
+                label="Entrar"
+                onPress={handleAuthentication}
+                onPressIn={pressAnimation.onPressIn}
+                onPressOut={pressAnimation.onPressOut}
+              />
+            </Animated.View>
           </View>
         </View>
       </KeyboardAvoidingView>
