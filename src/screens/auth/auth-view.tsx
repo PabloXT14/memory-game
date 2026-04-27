@@ -1,17 +1,18 @@
 import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
-import { KeyboardAvoidingView } from "react-native-keyboard-controller"
 import Animated from "react-native-reanimated"
 
 import { colors } from "@/shared/theme/colors"
 import { fontFamily } from "@/shared/theme/font-family"
 import { usePressAnimation } from "@/animations/hooks/use-press-animation"
+import { useInputFocusAnimation } from "@/animations/hooks/use-input-focus-animation"
 
 import type { useAuthViewModel } from "./use-auth-view-model"
 
 import { Button } from "@/shared/components/button"
 import { Input } from "@/shared/components/input"
+import { DismissKeyboardView } from "@/shared/components/dismiss-keyboard-view"
 
 type AuthViewProps = ReturnType<typeof useAuthViewModel>
 
@@ -21,10 +22,11 @@ export const AuthView = ({
   handleAuthentication,
 }: AuthViewProps) => {
   const pressAnimation = usePressAnimation({ scaleActive: 0.8 })
+  const inputFocusAnimation = useInputFocusAnimation()
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <DismissKeyboardView>
         <View style={styles.content}>
           {/* WELCOME SECTION */}
           <View style={styles.welcomeSection}>
@@ -50,6 +52,9 @@ export const AuthView = ({
               onChangeText={setUsername}
               autoCapitalize="words"
               returnKeyType="done"
+              containerStyle={inputFocusAnimation.animatedStyle}
+              onFocus={inputFocusAnimation.onFocus}
+              onBlur={inputFocusAnimation.onBlur}
             />
 
             <Animated.View style={pressAnimation.animatedStyle}>
@@ -62,7 +67,7 @@ export const AuthView = ({
             </Animated.View>
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </DismissKeyboardView>
     </SafeAreaView>
   )
 }

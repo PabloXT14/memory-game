@@ -1,12 +1,12 @@
-import { colors } from "@/shared/theme/colors"
 import {
   type StyleProp,
   TextInput,
   type TextInputProps,
-  View,
   type ViewStyle,
 } from "react-native"
+import Animated from "react-native-reanimated"
 
+import { colors } from "@/shared/theme/colors"
 import { styles } from "./styles"
 
 type InputProps = TextInputProps & {
@@ -14,11 +14,11 @@ type InputProps = TextInputProps & {
 }
 
 export const Input = ({ containerStyle, style, ...props }: InputProps) => (
-  <View style={[styles.container, containerStyle]}>
+  <Animated.View style={[styles.container, containerStyle]}>
     <TextInput
       placeholderTextColor={colors.grayscale[300]}
       style={[styles.input, style]}
       {...props}
     />
-  </View>
+  </Animated.View>
 )
