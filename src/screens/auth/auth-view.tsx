@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image } from "expo-image"
 import Animated from "react-native-reanimated"
 
 import { colors } from "@/shared/theme/colors"
-import { fontFamily } from "@/shared/theme/font-family"
 import { usePressAnimation } from "@/animations/hooks/use-press-animation"
 import { useInputFocusAnimation } from "@/animations/hooks/use-input-focus-animation"
 
@@ -13,6 +12,7 @@ import type { useAuthViewModel } from "./use-auth-view-model"
 import { Button } from "@/shared/components/button"
 import { Input } from "@/shared/components/input"
 import { DismissKeyboardView } from "@/shared/components/dismiss-keyboard-view"
+import { AppText } from "@/shared/components/app-text"
 
 type AuthViewProps = ReturnType<typeof useAuthViewModel>
 
@@ -37,10 +37,10 @@ export const AuthView = ({
             />
 
             <View style={{ alignItems: "center" }}>
-              <Text style={styles.title}>memory game</Text>
-              <Text style={styles.subtitle}>
+              <AppText variant="heading-xl">memory game</AppText>
+              <AppText variant="text-md" color={colors.grayscale[200]}>
                 Teste sua memória enquanto aprende!
-              </Text>
+              </AppText>
             </View>
           </View>
 
@@ -90,20 +90,6 @@ const styles = StyleSheet.create({
   welcomeSection: {
     alignItems: "center",
     gap: 20,
-  },
-
-  title: {
-    color: colors.grayscale[100],
-    fontSize: 28,
-    fontFamily: fontFamily.baloo2.extraBold,
-    lineHeight: 28 * 1.4, // 140% line height for better readability
-  },
-
-  subtitle: {
-    color: colors.grayscale[200],
-    fontSize: 16,
-    fontFamily: fontFamily.baloo2.regular,
-    lineHeight: 24,
   },
 
   loginForm: {
