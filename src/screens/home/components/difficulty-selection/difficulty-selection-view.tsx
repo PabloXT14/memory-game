@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Clock4 } from "lucide-react-native"
 
 import { colors } from "@/shared/theme/colors"
@@ -6,7 +6,7 @@ import { colors } from "@/shared/theme/colors"
 import { AppText } from "@/shared/components/app-text"
 
 import type { useDifficultySelectionViewModel } from "./use-difficulty-selection-view-model"
-import { Image } from "expo-image"
+import { DifficultyTab } from "./components/difficulty-tab"
 
 type DifficultySelectionProps = ReturnType<
   typeof useDifficultySelectionViewModel
@@ -14,6 +14,8 @@ type DifficultySelectionProps = ReturnType<
 
 export const DifficultySelectionView = ({
   difficulties,
+  selectedDifficulty,
+  handleSelectDifficulty,
 }: DifficultySelectionProps) => (
   <View style={styles.container}>
     <View style={styles.header}>
@@ -27,19 +29,12 @@ export const DifficultySelectionView = ({
 
     <View style={styles.selection}>
       {difficulties.map((difficulty) => (
-        <TouchableOpacity
+        <DifficultyTab
           key={difficulty.id}
-          style={styles.item}
-          activeOpacity={0.8}
-        >
-          <Image
-            source={difficulty.icon}
-            style={{ width: 16, height: 14 }}
-            contentFit="contain"
-          />
-
-          <AppText variant="heading-sm">{difficulty.label}</AppText>
-        </TouchableOpacity>
+          difficulty={difficulty}
+          isSelected={selectedDifficulty?.id === difficulty.id}
+          onPress={() => handleSelectDifficulty(difficulty)}
+        />
       ))}
     </View>
   </View>
