@@ -3,8 +3,10 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 import { colors } from "@/shared/theme/colors"
 
-import type { useHomeViewModel } from "./use-home-view-model"
 import { Header } from "./components/header"
+import { DifficultySelection } from "./components/difficulty-selection"
+
+import type { useHomeViewModel } from "./use-home-view-model"
 
 type HomeProps = ReturnType<typeof useHomeViewModel>
 
@@ -12,6 +14,8 @@ export const HomeView = (_props: HomeProps) => (
   <SafeAreaView style={styles.container}>
     <View style={styles.content}>
       <Header />
+
+      <DifficultySelection />
     </View>
   </SafeAreaView>
 )
