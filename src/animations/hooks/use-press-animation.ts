@@ -1,4 +1,5 @@
 import { useCallback } from "react"
+import type { DimensionValue } from "react-native"
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -11,11 +12,13 @@ import { SPRING_CONFIG } from "../config/animation-config"
 type UsePressAnimationConfig = {
   scaleActive?: number
   springConfig?: WithSpringConfig
+  width?: DimensionValue
 }
 
 export const usePressAnimation = ({
   scaleActive = 0.95,
   springConfig = SPRING_CONFIG.press,
+  width = "100%",
 }: UsePressAnimationConfig = {}) => {
   const scale = useSharedValue(1)
 
@@ -29,7 +32,7 @@ export const usePressAnimation = ({
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
-    width: "100%",
+    width,
   }))
 
   return { onPressIn, onPressOut, animatedStyle }

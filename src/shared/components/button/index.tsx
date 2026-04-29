@@ -5,6 +5,7 @@ import {
   View,
   type TouchableOpacityProps,
 } from "react-native"
+import Animated, { type StyleProps } from "react-native-reanimated"
 import { LinearGradient } from "expo-linear-gradient"
 import type { LucideIcon } from "lucide-react-native"
 
@@ -20,7 +21,10 @@ type ButtonProps = TouchableOpacityProps & {
   iconColor?: string
   variant?: Variant
   isLoading?: boolean
+  animationStyle?: StyleProps
 }
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
 
 export const Button = ({
   label,
@@ -31,6 +35,7 @@ export const Button = ({
   isLoading = false,
   disabled,
   style,
+  animationStyle,
   ...props
 }: ButtonProps) => {
   const isDisabled = disabled || isLoading
@@ -50,7 +55,12 @@ export const Button = ({
   )
 
   return (
-    <TouchableOpacity activeOpacity={0.8} disabled={isDisabled} {...props}>
+    <AnimatedTouchable
+      activeOpacity={0.8}
+      disabled={isDisabled}
+      style={animationStyle}
+      {...props}
+    >
       {variant === "primary" && (
         <LinearGradient
           colors={[
@@ -78,6 +88,6 @@ export const Button = ({
           {content}
         </View>
       )}
-    </TouchableOpacity>
+    </AnimatedTouchable>
   )
 }
