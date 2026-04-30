@@ -8,7 +8,6 @@ import { Image } from "expo-image"
 import { AppText } from "@/shared/components/app-text"
 
 import type { DifficultyOption } from "@/shared/interfaces/difficulty"
-import { colors } from "@/shared/theme/colors"
 
 type DifficultyTabProps = TouchableOpacityProps & {
   difficulty: DifficultyOption
@@ -37,6 +36,7 @@ export const DifficultyTab = ({
 
 const styles = StyleSheet.create({
   container: {
+    zIndex: 10,
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
@@ -46,14 +46,12 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingLeft: 4,
 
-    borderRadius: 9999,
-    borderWidth: 1,
     opacity: 0.5,
   },
 
   selectedContainer: {
-    backgroundColor: colors.grayscale[500],
-    borderColor: colors.grayscale[400],
+    // backgroundColor: colors.grayscale[500],
+    // borderColor: colors.grayscale[400],
     opacity: 1,
   },
 })
