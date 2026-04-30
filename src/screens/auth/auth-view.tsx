@@ -31,7 +31,7 @@ export const AuthView = ({
           {/* WELCOME SECTION */}
           <View style={styles.welcomeSection}>
             <Image
-              source={require("@/assets/images/logo.svg")}
+              source={require("@/assets/logo.svg")}
               style={{ width: 71, height: 71 }}
               contentFit="contain"
             />

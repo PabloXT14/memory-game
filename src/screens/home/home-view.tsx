@@ -5,6 +5,7 @@ import { colors } from "@/shared/theme/colors"
 
 import { Header } from "./components/header"
 import { DifficultySelection } from "./components/difficulty-selection"
+import { ChallengesList } from "./components/challenges-list"
 
 import type { useHomeViewModel } from "./use-home-view-model"
 
@@ -16,6 +17,8 @@ export const HomeView = (_props: HomeProps) => (
       <Header />
 
       <DifficultySelection />
+
+      <ChallengesList />
     </View>
   </SafeAreaView>
 )
