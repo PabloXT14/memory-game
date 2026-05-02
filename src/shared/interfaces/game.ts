@@ -19,6 +19,12 @@ export type GameChallenge = {
   gradient?: [string, string]
 }
 
+export type GameStoreCard = ChallengeCard & {
+  id: string
+  isFlipped: boolean
+  isMatched: boolean
+}
+
 export type GameState = {
   status: GameStatus
   challenge: GameChallenge | null
@@ -26,7 +32,7 @@ export type GameState = {
   timeRemaining: number
   timeElapsed: number
   startedAt: Date | null
-  cards: ChallengeCard[]
+  cards: GameStoreCard[]
 }
 
 export type GameResult = {
