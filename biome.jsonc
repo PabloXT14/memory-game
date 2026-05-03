@@ -25,6 +25,9 @@
       },
       "nursery": {
         "noLeakedRender": "off"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off"
       }
     }
   }
