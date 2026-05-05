@@ -51,4 +51,19 @@ export class CardService {
 
     return this.shuffleCards(cards)
   }
+
+  static flipCard(card: GameStoreCard, flipped: boolean): GameStoreCard {
+    return {
+      ...card,
+      isFlipped: flipped,
+    }
+  }
+
+  static markAsMatched(card: GameStoreCard): GameStoreCard {
+    return {
+      ...card,
+      isFlipped: true,
+      isMatched: true,
+    }
+  }
 }

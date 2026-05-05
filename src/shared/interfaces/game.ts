@@ -28,7 +28,7 @@ export type GameStoreCard = ChallengeCard & {
 export type GameState = {
   status: GameStatus
   challenge: GameChallenge | null
-  selectedCards: ChallengeCard[]
+  selectedCards: GameStoreCard[]
   timeRemaining: number
   timeElapsed: number
   startedAt: Date | null
