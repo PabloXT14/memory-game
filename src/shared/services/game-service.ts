@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/complexity/noThisInStatic: option */
+
 import type { GameChallenge, GameState } from "../interfaces/game"
 
 import { CardService } from "./card-service"
@@ -127,5 +129,31 @@ export class GameService {
       cards: updatedCards,
       selectedCards: [],
     }
+  }
+
+  static pauseGame(gameState: GameState): GameState {
+    if (gameState.status !== "playing") {
+      return gameState
+    }
+
+    return {
+      ...gameState,
+      status: "paused",
+    }
+  }
+
+  static resumeGame(gameState: GameState): GameState {
+    if (gameState.status !== "paused") {
+      return gameState
+    }
+
+    return {
+      ...gameState,
+      status: "playing",
+    }
+  }
+
+  static resetGame(challenge: GameChallenge): GameState {
+    return this.initializeGame(challenge)
   }
 }
