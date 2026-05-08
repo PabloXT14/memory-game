@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/complexity/noThisInStatic: option */
 
-import type { GameChallenge, GameState } from "../interfaces/game"
+import type { GameChallenge, GameResult, GameState } from "../interfaces/game"
 
 import { CardService } from "./card-service"
 
@@ -155,5 +155,35 @@ export class GameService {
 
   static resetGame(challenge: GameChallenge): GameState {
     return this.initializeGame(challenge)
+  }
+
+  static tick(gameState: GameState): GameState {
+    if (gameState.status !== "playing") {
+      return gameState
+    }
+
+    const timeRemaining = Math.max(gameState.timeRemaining - 1, 0)
+    const timeElapsed = gameState.timeElapsed + 1
+
+    const isTimeout = timeRemaining === 0
+
+    return {
+      ...gameState,
+      timeRemaining,
+      timeElapsed,
+      status: isTimeout ? "timeout" : gameState.status,
+    }
+  }
+
+  static finishGame(gameState: GameState): GameResult | null {
+    if (!gameState.challenge) {
+      return null
+    }
+
+    return {
+      completed: gameState.status === "finished",
+      timeElapsed: gameState.timeElapsed,
+      challenge: gameState.challenge,
+    }
   }
 }
