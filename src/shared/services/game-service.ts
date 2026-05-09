@@ -1,6 +1,11 @@
 /** biome-ignore-all lint/complexity/noThisInStatic: option */
 
-import type { GameChallenge, GameResult, GameState } from "../interfaces/game"
+import type {
+  GameChallenge,
+  GameResult,
+  GameState,
+  GameStoreCard,
+} from "../interfaces/game"
 
 import { CardService } from "./card-service"
 
@@ -30,6 +35,10 @@ export class GameService {
       status: "playing",
       startedAt: new Date(),
     }
+  }
+
+  static checkGameCompletion(cards: GameStoreCard[]): boolean {
+    return cards.every((card) => card.isMatched)
   }
 
   static selectCard(gameState: GameState, cardId: string): SelectCardResult {
@@ -89,11 +98,14 @@ export class GameService {
         return card
       })
 
+      const isGameCompleted = GameService.checkGameCompletion(finalCardsArray)
+
       return {
         newGameState: {
           ...gameState,
           cards: finalCardsArray,
           selectedCards: [],
+          status: isGameCompleted ? "finished" : gameState.status,
         },
         action: "match",
       }
