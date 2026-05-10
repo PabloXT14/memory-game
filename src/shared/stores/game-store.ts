@@ -1,6 +1,7 @@
 import { create } from "zustand"
 
 import type { GameChallenge, GameResult, GameState } from "../interfaces/game"
+import { GameService } from "../services/game-service"
 
 type GameStore = GameState & {
   initGame: (challenge: GameChallenge) => void // Initialize the game with a specific challenge
@@ -23,7 +24,7 @@ type GameStore = GameState & {
   hideAllCards: () => void
 }
 
-export const useGameStore = create<GameStore>((_set, _get) => ({
+export const useGameStore = create<GameStore>((set, get) => ({
   status: "idle",
   challenge: null,
   cards: [],
@@ -33,9 +34,33 @@ export const useGameStore = create<GameStore>((_set, _get) => ({
   timeRemaining: 0,
 
   // Game Logic
-  initGame: () => {},
+  initGame: (challenge: GameChallenge) => {
+    const gameState = GameService.initializeGame(challenge)
+
+    set(gameState)
+  },
+  startGame: () => {
+    const currentState = get()
+
+    const newState = GameService.startGame(currentState)
+
+    set(newState)
+  },
+  finishGame: () => {
+    const currentState = get()
+
+    const result = GameService.finishGame(currentState)
+
+    return result
+  },
   selectCard: (cardId: string) => {},
-  resetMisMatchedCards: () => {},
+  resetMisMatchedCards: () => {
+    const currentState = get()
+
+    const newState = GameService.resetMismatchedCards(currentState)
+
+    set(newState)
+  },
 
   // Timer
   timerId: null,
@@ -44,12 +69,10 @@ export const useGameStore = create<GameStore>((_set, _get) => ({
   stopTimer: () => {},
 
   // Life Cycle Management
-  startGame: () => {},
   pauseGame: () => {},
   resumeGame: () => {},
   resetGame: () => {},
   clearGame: () => {},
-  finishGame: () => null,
 
   // Card Preview
   previewAllCards: () => {},
