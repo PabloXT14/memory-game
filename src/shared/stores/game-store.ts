@@ -99,10 +99,50 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   // Life Cycle Management
-  pauseGame: () => {},
-  resumeGame: () => {},
-  resetGame: () => {},
-  clearGame: () => {},
+  pauseGame: () => {
+    const currentState = get()
+
+    const newState = GameService.pauseGame(currentState)
+
+    set(newState)
+
+    get().stopTimer()
+  },
+  resumeGame: () => {
+    const currentState = get()
+
+    const newState = GameService.resumeGame(currentState)
+
+    set(newState)
+
+    get().startTimer()
+  },
+  resetGame: () => {
+    const currentState = get()
+
+    if (!currentState.challenge) {
+      return
+    }
+
+    const newState = GameService.resetGame(currentState.challenge)
+
+    set(newState)
+
+    get().stopTimer()
+  },
+  clearGame: () => {
+    get().stopTimer()
+
+    set({
+      status: "idle",
+      challenge: null,
+      cards: [],
+      selectedCards: [],
+      timeElapsed: 0,
+      startedAt: null,
+      timeRemaining: 0,
+    })
+  },
 
   // Card Preview
   previewAllCards: () => {},
