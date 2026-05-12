@@ -198,4 +198,12 @@ export class GameService {
       challenge: gameState.challenge,
     }
   }
+
+  static previewAllCards(cards: GameStoreCard[]): GameStoreCard[] {
+    return cards.map((card) => CardService.flipCard(card, true))
+  }
+
+  static hideAllCards(cards: GameStoreCard[]): GameStoreCard[] {
+    return cards.map((card) => CardService.flipCard(card, false))
+  }
 }
