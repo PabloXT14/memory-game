@@ -18,25 +18,27 @@ export const DifficultySelectionView = ({
   selectedDifficulty,
   handleSelectDifficulty,
   animatedIndicatorStyle,
+  timeAnimatedStyle,
 }: DifficultySelectionProps) => (
   <View style={styles.container}>
     <View style={styles.header}>
       <AppText color={colors.grayscale[200]}>Dificuldade</AppText>
 
-      <View style={styles.tag}>
+      <Animated.View style={[styles.tag, timeAnimatedStyle]}>
         <Clock4 size={16} color={colors.feedback.info} />
-        <AppText>5 min</AppText>
-      </View>
+
+        <AppText>{selectedDifficulty?.estimatedTime}</AppText>
+      </Animated.View>
     </View>
 
     <View style={styles.selection}>
       <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
 
-      {difficulties.map((difficulty) => (
+      {Object.values(difficulties).map((difficulty) => (
         <DifficultyTab
-          key={difficulty.id}
+          key={difficulty.difficulty}
           difficulty={difficulty}
-          isSelected={selectedDifficulty?.id === difficulty.id}
+          isSelected={selectedDifficulty?.difficulty === difficulty.difficulty}
           onPress={() => handleSelectDifficulty(difficulty)}
         />
       ))}

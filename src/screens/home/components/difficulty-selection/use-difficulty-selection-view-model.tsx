@@ -5,31 +5,23 @@ import {
   withSpring,
 } from "react-native-reanimated"
 
-import type { DifficultyOption } from "@/shared/interfaces/difficulty"
+import {
+  type DifficultyOption,
+  DIFFICULTY_OPTIONS,
+} from "@/shared/interfaces/difficulty"
 
-const DIFFICULTIES: DifficultyOption[] = [
-  {
-    id: "easy",
-    label: "Fácil",
-    icon: require("@/assets/icons/level-01.svg"),
-  },
-  {
-    id: "medium",
-    label: "Médio",
-    icon: require("@/assets/icons/level-02.svg"),
-  },
-  {
-    id: "hard",
-    label: "Difícil",
-    icon: require("@/assets/icons/level-03.svg"),
-  },
-]
+import { useNumberAnimation } from "@/animations/hooks/use-number-animation"
 
 export const useDifficultySelectionViewModel = () => {
   const [selectedDifficulty, setSelectedDifficulty] =
-    useState<DifficultyOption>(DIFFICULTIES[0])
+    useState<DifficultyOption>(DIFFICULTY_OPTIONS.easy)
 
-  const selectedIndex = DIFFICULTIES.indexOf(selectedDifficulty)
+  const { animatedStyle: timeAnimatedStyle } = useNumberAnimation(
+    selectedDifficulty.timeLimit
+  )
+
+  const selectedIndex =
+    Object.values(DIFFICULTY_OPTIONS).indexOf(selectedDifficulty)
   const translateX = useSharedValue(selectedIndex * 100) // 100% of the tab width
 
   const handleSelectDifficulty = (difficulty: DifficultyOption) => {
@@ -37,7 +29,8 @@ export const useDifficultySelectionViewModel = () => {
   }
 
   useEffect(() => {
-    const newIndex = DIFFICULTIES.indexOf(selectedDifficulty)
+    const newIndex =
+      Object.values(DIFFICULTY_OPTIONS).indexOf(selectedDifficulty)
 
     translateX.value = withSpring(newIndex * 100, {
       stiffness: 120,
@@ -50,9 +43,10 @@ export const useDifficultySelectionViewModel = () => {
   }))
 
   return {
-    difficulties: DIFFICULTIES,
+    difficulties: DIFFICULTY_OPTIONS,
     selectedDifficulty,
     handleSelectDifficulty,
     animatedIndicatorStyle,
+    timeAnimatedStyle,
   }
 }
