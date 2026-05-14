@@ -11,14 +11,21 @@ import type { useHomeViewModel } from "./use-home-view-model"
 
 type HomeProps = ReturnType<typeof useHomeViewModel>
 
-export const HomeView = (_props: HomeProps) => (
+export const HomeView = ({
+  selectedDifficulty,
+  setSelectedDifficulty,
+  handleSelectChallenge,
+}: HomeProps) => (
   <SafeAreaView style={styles.container}>
     <View style={styles.content}>
       <Header />
 
-      <DifficultySelection />
+      <DifficultySelection
+        selectedDifficulty={selectedDifficulty}
+        setSelectedDifficulty={setSelectedDifficulty}
+      />
 
-      <ChallengesList />
+      <ChallengesList onSelectChallenge={handleSelectChallenge} />
     </View>
   </SafeAreaView>
 )

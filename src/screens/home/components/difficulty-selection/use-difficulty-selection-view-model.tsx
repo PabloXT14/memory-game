@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -12,10 +12,15 @@ import {
 
 import { useNumberAnimation } from "@/animations/hooks/use-number-animation"
 
-export const useDifficultySelectionViewModel = () => {
-  const [selectedDifficulty, setSelectedDifficulty] =
-    useState<DifficultyOption>(DIFFICULTY_OPTIONS.easy)
+export type DifficultySelectionViewModelProps = {
+  selectedDifficulty: DifficultyOption
+  setSelectedDifficulty: (difficulty: DifficultyOption) => void
+}
 
+export const useDifficultySelectionViewModel = ({
+  selectedDifficulty,
+  setSelectedDifficulty,
+}: DifficultySelectionViewModelProps) => {
   const { animatedStyle: timeAnimatedStyle } = useNumberAnimation(
     selectedDifficulty.timeLimit
   )

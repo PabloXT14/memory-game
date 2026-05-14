@@ -1,8 +1,13 @@
 import { DifficultySelectionView } from "./difficulty-selection-view"
-import { useDifficultySelectionViewModel } from "./use-difficulty-selection-view-model"
+import {
+  useDifficultySelectionViewModel,
+  type DifficultySelectionViewModelProps,
+} from "./use-difficulty-selection-view-model"
 
-export const DifficultySelection = () => {
-  const props = useDifficultySelectionViewModel()
+type DifficultySelectionProps = DifficultySelectionViewModelProps
 
-  return <DifficultySelectionView {...props} />
+export const DifficultySelection = (props: DifficultySelectionProps) => {
+  const viewModel = useDifficultySelectionViewModel({ ...props })
+
+  return <DifficultySelectionView {...viewModel} />
 }

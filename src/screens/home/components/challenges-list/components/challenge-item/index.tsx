@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react"
 import { Pressable, StyleSheet, View } from "react-native"
 import { LinearGradient } from "expo-linear-gradient"
 import { ArrowRight } from "lucide-react-native"
@@ -10,13 +11,13 @@ import { AppText } from "@/shared/components/app-text"
 
 import type { Challenge } from "@/shared/interfaces/challenge"
 
-type ChallengeItemProps = {
+type ChallengeItemProps = ComponentProps<typeof Pressable> & {
   challenge: Challenge
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
+export const ChallengeItem = ({ challenge, ...props }: ChallengeItemProps) => {
   const pressAnimation = usePressAnimation({ scaleActive: 0.8 })
 
   return (
@@ -24,6 +25,7 @@ export const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
       onPressIn={pressAnimation.onPressIn}
       onPressOut={pressAnimation.onPressOut}
       style={pressAnimation.animatedStyle}
+      {...props}
     >
       <LinearGradient
         colors={[...challenge.gradient]}

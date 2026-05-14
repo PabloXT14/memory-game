@@ -6,14 +6,23 @@ import { CHALLENGES } from "@/shared/data/challenges"
 import { AppText } from "@/shared/components/app-text"
 import { ChallengeItem } from "./components/challenge-item"
 
-export const ChallengesList = () => (
+type ChallengesListProps = {
+  onSelectChallenge: (challengeId: string) => void
+}
+
+export const ChallengesList = ({ onSelectChallenge }: ChallengesListProps) => (
   <View style={styles.container}>
-    <AppText color={colors.grayscale[200]}>Desafios disponíveis</AppText>
+    <AppText color={colors.grayscale[200]}>Desafios disponíveis</AppText>
 
     <FlatList
       data={CHALLENGES}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <ChallengeItem challenge={item} />}
+      renderItem={({ item }) => (
+        <ChallengeItem
+          challenge={item}
+          onPress={() => onSelectChallenge(item.id)}
+        />
+      )}
       contentContainerStyle={{ gap: 12 }}
     />
   </View>
